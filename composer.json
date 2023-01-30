@@ -1,0 +1,17 @@
+{
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.6",
+        "nyholm/psr7": "^1.5",
+        "nyholm/psr7-server": "^1.0",
+        "guzzlehttp/psr7": "2",
+        "symfony/var-dumper": "^6.0",
+        "rakit/validation": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Helpers\\": "Helpers/",
+            "Factory\\": "factory/"
+        }
+    }
+}
