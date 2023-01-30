@@ -1,5 +1,6 @@
 <?php
-namespace Factory;
+
+namespace App\Factory;
 
 abstract class PreserverAppeal
 {

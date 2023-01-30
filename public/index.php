@@ -1,37 +1,24 @@
 <?php
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+
 use Slim\Factory\AppFactory;
-use Helpers\FileSaver;
-use Rakit\Validation\Validator;
+use App\Services\Form\File\FileSaver;
+use DI\Container;
+use App\Controllers\FeedbackController;
 
 require __DIR__ . '/../vendor/autoload.php';
+require(__DIR__ . '/../common/env.php');
+
+$container = new Container();
+
+$container->set('formSaver', function () {
+    return new FileSaver();
+});
+AppFactory::setContainer($container);
 
 $app = AppFactory::create();
+
 $app->addBodyParsingMiddleware();
-$app->post('/add', function (Request $request, Response $response, $args) {
-    $validator = new Validator();
-    $data = $request->getParsedBody();
-    $vadation = $validator->make($data, [
-        'name' => 'required',
-        'phone' => 'required|numeric|min:11',
-        'text' => 'required|min:10',
-    ]);
 
-    $vadation->validate();
-    if($vadation->fails()){
-        $messages = $vadation->errors();
-        $response->getBody()->write(json_encode($messages->toArray()));
-        return $response->withHeader('Content-Type', 'application/json')
-            ->withStatus(500);
-    }
-
-    $saver = new FileSaver();
-
-    $saver->save($data);
-    $response->getBody()->write(json_encode(["message" => "data saved"]));
-    return $response->withHeader('Content-Type', 'application/json')
-        ->withStatus(200);
-});
+$app->post('/', FeedbackController::class);
 
 $app->run();
