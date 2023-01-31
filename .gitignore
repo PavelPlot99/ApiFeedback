@@ -1,5 +1,6 @@
 /vendor
 .git
 .idea
-/storage/storage.txt
 common/.env
+storage/storage.txt
+
