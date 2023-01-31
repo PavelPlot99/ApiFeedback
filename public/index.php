@@ -2,6 +2,7 @@
 
 use Slim\Factory\AppFactory;
 use App\Services\Form\File\FileSaver;
+use App\Services\Form\Database\DbSaver;
 use DI\Container;
 use App\Controllers\FeedbackController;
 
@@ -12,6 +13,8 @@ $container = new Container();
 
 $container->set('formSaver', function () {
     return new FileSaver();
+    //return new DbSaver(); если нужно сохранить в БД
+
 });
 AppFactory::setContainer($container);
 

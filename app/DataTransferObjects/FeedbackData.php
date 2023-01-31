@@ -4,9 +4,9 @@ namespace App\DataTransferObjects;
 
 final class FeedbackData
 {
-    public string $name;
-    public string $phone;
-    public string $text;
+    public string|null $name;
+    public string|null $phone;
+    public string|null $text;
 
     public function __construct($data)
     {

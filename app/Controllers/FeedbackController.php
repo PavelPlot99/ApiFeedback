@@ -23,15 +23,15 @@ class FeedbackController
 
         $data = FeedbackData::fromRequest($request);
 
-        $vadation = $validator->make($data->toArray(), [
+        $validation = $validator->make($data->toArray(), [
             'name' => 'required',
+            'text' => 'required|min:11',
             'phone' => 'required|numeric|min:11',
-            'text' => 'required|min:10',
         ]);
 
-        $vadation->validate();
-        if($vadation->fails()){
-            $messages = $vadation->errors();
+        $validation->validate();
+        if($validation->fails()){
+            $messages = $validation->errors();
             $response->getBody()->write(json_encode($messages->toArray()));
             return $response->withHeader('Content-Type', 'application/json')
                 ->withStatus(500);
