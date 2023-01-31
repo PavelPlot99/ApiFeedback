@@ -34,7 +34,7 @@ class FeedbackController
             $messages = $validation->errors();
             $response->getBody()->write(json_encode($messages->toArray()));
             return $response->withHeader('Content-Type', 'application/json')
-                ->withStatus(500);
+                ->withStatus(422);
         }
 
         $saver = $this->container->get('formSaver');
