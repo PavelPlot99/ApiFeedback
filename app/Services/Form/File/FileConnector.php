@@ -2,6 +2,7 @@
 
 namespace App\Services\Form\File;
 
+use App\DataTransferObjects\FeedbackData;
 use App\Services\Form\IConnector;
 
 class FileConnector implements IConnector
@@ -27,8 +28,8 @@ class FileConnector implements IConnector
     public function save($data): void
     {
         fwrite($this->file,
-            'name = '.$data["name"].
-            'phone = '.$data['phone'].
-            'text = '.$data['text']);
+            'name = '.$data->name.
+            'phone = '.$data->phone.
+            'text = '.$data->text);
     }
 }

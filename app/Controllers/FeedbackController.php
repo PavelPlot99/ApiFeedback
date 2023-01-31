@@ -6,6 +6,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Rakit\Validation\Validator;
+use App\DataTransferObjects\FeedbackData;
 
 class FeedbackController
 {
@@ -19,8 +20,10 @@ class FeedbackController
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args):ResponseInterface
     {
         $validator = new Validator();
-        $data = $request->getParsedBody();
-        $vadation = $validator->make($data, [
+
+        $data = FeedbackData::fromRequest($request);
+
+        $vadation = $validator->make($data->toArray(), [
             'name' => 'required',
             'phone' => 'required|numeric|min:11',
             'text' => 'required|min:10',
